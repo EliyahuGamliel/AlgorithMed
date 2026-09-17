@@ -99,3 +99,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
+// הוסף את זה בסוף הקובץ - זה יפנה את בקשת ה-Cron של Vercel ישירות לפונקציה שלך
+export async function GET(request: Request) {
+  return POST(request);
+}
