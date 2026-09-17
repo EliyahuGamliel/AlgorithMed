@@ -281,13 +281,22 @@ export default function Home() {
       <div className="flex flex-col items-center justify-center relative -translate-y-12 sm:-translate-y-16">
         <div className="absolute w-[250%] h-[250%] bg-blue-500/10 dark:bg-blue-600/10 blur-[120px] rounded-full animate-pulse pointer-events-none"></div>
         <div className="animate-in fade-in zoom-in-95 duration-1000 flex flex-col items-center relative z-10">
-          {/* הוספנו font-sans ועיצוב ישיר ללוגו כאן */}
-          <h1 className="text-6xl sm:text-7xl font-black tracking-tighter flex mb-1 drop-shadow-lg dark:drop-shadow-2xl animate-heartbeat font-sans" dir="ltr">
-            <span className="text-slate-800 dark:text-white">Algorit</span>
+          <svg className="w-24 h-10 text-blue-500 mb-2 opacity-80" viewBox="0 0 100 30" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M 0 15 L 30 15 L 40 5 L 50 25 L 60 15 L 100 15" strokeDasharray="100" strokeDashoffset="0" className="animate-[pulse_2s_ease-in-out_infinite]" />
+          </svg>
+          <h1 className="text-6xl sm:text-7xl font-black tracking-tighter flex mb-1 drop-shadow-lg dark:drop-shadow-2xl animate-heartbeat font-sans" dir="ltr" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+            <span className="text-slate-800 dark:text-white">Algorith</span>
             <span className="text-indigo-500 dark:text-indigo-400">M</span>
             <span className="text-blue-600 dark:text-blue-500">ed</span>
           </h1>
           <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full mt-3 opacity-80"></div>
+        </div>
+      </div>
+      <div className="absolute bottom-12 flex flex-col items-center animate-in fade-in slide-in-from-bottom-4 duration-1000" style={{ animationFillMode: 'backwards', animationDelay: '0.6s' }}>
+        <p className="text-slate-500 text-[10px] font-bold tracking-[0.2em] uppercase mb-2">מבית היוצר</p>
+        <div className="flex items-center gap-2 opacity-90">
+          <div className="w-3.5 h-3.5 bg-gradient-to-tr from-blue-500 to-indigo-400 rounded-[3px] rotate-45 shadow-[0_0_12px_rgba(59,130,246,0.6)]"></div>
+          <span className="text-slate-800 dark:text-white font-black tracking-widest text-lg drop-shadow-sm dark:drop-shadow-md font-sans" dir="ltr" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>ElikoMed</span>
         </div>
       </div>
     </div>
@@ -344,27 +353,47 @@ export default function Home() {
     }
 
     return (
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-100 dark:border-blue-800/50 rounded-2xl p-4 sm:p-6 text-center mb-10 shadow-sm">
-        <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider">הזמן שנותר עד לנעילת המערכת</h3>
-        <div className="flex justify-center gap-4 sm:gap-6" dir="ltr">
+      <div className="relative bg-white dark:bg-slate-800/80 rounded-[2rem] p-6 sm:p-8 text-center mb-10 shadow-lg border border-slate-100 dark:border-slate-700/80 overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
+        
+        <h3 className="text-sm font-black text-slate-400 dark:text-slate-500 mb-6 uppercase tracking-widest">
+          הזמן שנותר עד לנעילת המערכת
+        </h3>
+        
+        <div className="flex justify-center items-center gap-3 sm:gap-5" dir="ltr">
           <div className="flex flex-col items-center">
-            <span className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-white tabular-nums">{String(timeLeft.days).padStart(2, '0')}</span>
-            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1">ימים</span>
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 dark:bg-slate-900/80 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-inner">
+              <span className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-white tabular-nums tracking-tighter">{String(timeLeft.days).padStart(2, '0')}</span>
+            </div>
+            <span className="text-[11px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 mt-2">ימים</span>
           </div>
-          <span className="text-3xl sm:text-4xl font-black text-slate-300 dark:text-slate-600/50">:</span>
+
+          <span className="text-2xl sm:text-3xl font-black text-slate-300 dark:text-slate-600 -mt-6">:</span>
+
           <div className="flex flex-col items-center">
-            <span className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-white tabular-nums">{String(timeLeft.hours).padStart(2, '0')}</span>
-            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1">שעות</span>
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 dark:bg-slate-900/80 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-inner">
+              <span className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-white tabular-nums tracking-tighter">{String(timeLeft.hours).padStart(2, '0')}</span>
+            </div>
+            <span className="text-[11px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 mt-2">שעות</span>
           </div>
-          <span className="text-3xl sm:text-4xl font-black text-slate-300 dark:text-slate-600/50">:</span>
+
+          <span className="text-2xl sm:text-3xl font-black text-slate-300 dark:text-slate-600 -mt-6">:</span>
+
           <div className="flex flex-col items-center">
-            <span className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-white tabular-nums">{String(timeLeft.minutes).padStart(2, '0')}</span>
-            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 mt-1">דקות</span>
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 dark:bg-slate-900/80 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-inner">
+              <span className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-white tabular-nums tracking-tighter">{String(timeLeft.minutes).padStart(2, '0')}</span>
+            </div>
+            <span className="text-[11px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 mt-2">דקות</span>
           </div>
-          <span className="text-3xl sm:text-4xl font-black text-slate-300 dark:text-slate-600/50">:</span>
+
+          <span className="text-2xl sm:text-3xl font-black text-slate-300 dark:text-slate-600 -mt-6">:</span>
+
           <div className="flex flex-col items-center">
-            <span className="text-3xl sm:text-4xl font-black text-blue-600 dark:text-blue-400 tabular-nums">{String(timeLeft.seconds).padStart(2, '0')}</span>
-            <span className="text-xs font-bold text-blue-600/70 dark:text-blue-400/70 mt-1">שניות</span>
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-blue-50 dark:bg-blue-900/30 rounded-2xl border border-blue-200 dark:border-blue-800/50 flex items-center justify-center shadow-inner relative overflow-hidden">
+              <div className="absolute inset-0 bg-blue-400/10 animate-pulse"></div>
+              <span className="text-3xl sm:text-4xl font-black text-blue-600 dark:text-blue-400 tabular-nums tracking-tighter relative z-10">{String(timeLeft.seconds).padStart(2, '0')}</span>
+            </div>
+            <span className="text-[11px] sm:text-xs font-bold text-blue-600/70 dark:text-blue-400/70 mt-2">שניות</span>
           </div>
         </div>
       </div>
@@ -384,9 +413,8 @@ export default function Home() {
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 flex justify-center w-1/3 cursor-default select-none"
           onClick={handleSecretClick}
         >
-          {/* הוספנו font-sans ועיצוב ישיר ללוגו כאן */}
-          <h1 className="text-3xl font-black tracking-tight flex font-sans" dir="ltr" >
-            <span className="text-slate-800 dark:text-white">Algorit</span>
+          <h1 className="text-2xl font-black tracking-tight flex font-sans" dir="ltr" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+            <span className="text-slate-800 dark:text-white">Algorith</span>
             <span className="text-indigo-500 dark:text-indigo-400">M</span>
             <span className="text-blue-600 dark:text-blue-500">ed</span>
           </h1>
