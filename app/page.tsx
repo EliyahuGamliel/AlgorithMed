@@ -353,48 +353,57 @@ export default function Home() {
     }
 
     return (
-      <div className="relative bg-white dark:bg-slate-800/80 rounded-[2rem] p-6 sm:p-8 text-center mb-10 shadow-lg border border-slate-100 dark:border-slate-700/80 overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500"></div>
-        
-        <h3 className="text-sm font-black text-slate-400 dark:text-slate-500 mb-6 uppercase tracking-widest">
+      <div className="relative bg-white dark:bg-slate-800/90 rounded-[2rem] p-6 sm:p-10 text-center mb-10 shadow-xl border border-slate-100 dark:border-slate-700/80 overflow-hidden">
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes flipGlass {
+            0%, 20% { transform: rotate(0deg); }
+            40%, 60% { transform: rotate(180deg); }
+            80%, 100% { transform: rotate(360deg); }
+          }
+          .animate-glass { animation: flipGlass 4s ease-in-out infinite; }
+        `}} />
+
+        {/* אפקט תאורה עדין שמתאים גם ליום וגם ללילה */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-32 bg-gradient-to-b from-indigo-500/10 dark:from-indigo-500/20 to-transparent blur-[40px] pointer-events-none"></div>
+
+        <h3 className="text-[10px] sm:text-xl font-black text-slate-400 dark:text-slate-500 mb-8 uppercase tracking-[0.2em] sm:tracking-[0.3em] flex items-center justify-center gap-3 relative z-10">
+          <span className="text-lg sm:text-xl animate-glass inline-block">⏳</span>
           הזמן שנותר עד לנעילת המערכת
+          <span className="text-lg sm:text-xl animate-glass inline-block">⏳</span>
         </h3>
         
-        <div className="flex justify-center items-center gap-3 sm:gap-5" dir="ltr">
-          <div className="flex flex-col items-center">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 dark:bg-slate-900/80 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-inner">
-              <span className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-white tabular-nums tracking-tighter">{String(timeLeft.days).padStart(2, '0')}</span>
-            </div>
-            <span className="text-[11px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 mt-2">ימים</span>
-          </div>
+        <div className="flex justify-center items-center gap-2 sm:gap-4" dir="ltr">
+          {[
+            { label: 'ימים', value: timeLeft.days },
+            { label: 'שעות', value: timeLeft.hours },
+            { label: 'דקות', value: timeLeft.minutes },
+            { label: 'שניות', value: timeLeft.seconds, color: 'text-indigo-600 dark:text-indigo-400' }
+          ].map((item, idx) => (
+            <React.Fragment key={item.label}>
+              <div className="flex flex-col items-center">
+                {/* כרטיסיית שעון פליפ דינאמית - בהירה ביום, כהה בלילה */}
+                <div className="relative w-16 h-20 sm:w-20 sm:h-24 bg-white dark:bg-slate-900 rounded-xl shadow-md flex items-center justify-center overflow-hidden border border-slate-200 dark:border-slate-800">
+                  {/* הצללה עליונה */}
+                  <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-black/[0.02] dark:from-white/5 to-transparent z-0"></div>
+                  {/* חיתוך הפליפ האמצעי */}
+                  <div className="absolute top-1/2 left-0 w-full h-[2px] bg-slate-100 dark:bg-slate-950 -translate-y-1/2 z-20 shadow-[0_1px_0_rgba(255,255,255,0.8)] dark:shadow-[0_1px_0_rgba(255,255,255,0.05)]"></div>
+                  {/* הצללה תחתונה */}
+                  <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/[0.05] dark:from-black/40 to-transparent z-0"></div>
 
-          <span className="text-2xl sm:text-3xl font-black text-slate-300 dark:text-slate-600 -mt-6">:</span>
+                  <span className={`text-4xl sm:text-5xl font-black tabular-nums tracking-tighter relative z-10 drop-shadow-sm ${item.color || 'text-slate-800 dark:text-white'}`}>
+                    {String(item.value).padStart(2, '0')}
+                  </span>
+                </div>
+                <span className={`text-[10px] sm:text-xs font-bold mt-3 uppercase tracking-wider ${item.color ? 'text-indigo-600/80 dark:text-indigo-400/80' : 'text-slate-500 dark:text-slate-400'}`}>
+                  {item.label}
+                </span>
+              </div>
 
-          <div className="flex flex-col items-center">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 dark:bg-slate-900/80 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-inner">
-              <span className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-white tabular-nums tracking-tighter">{String(timeLeft.hours).padStart(2, '0')}</span>
-            </div>
-            <span className="text-[11px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 mt-2">שעות</span>
-          </div>
-
-          <span className="text-2xl sm:text-3xl font-black text-slate-300 dark:text-slate-600 -mt-6">:</span>
-
-          <div className="flex flex-col items-center">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-50 dark:bg-slate-900/80 rounded-2xl border border-slate-200 dark:border-slate-700 flex items-center justify-center shadow-inner">
-              <span className="text-3xl sm:text-4xl font-black text-slate-800 dark:text-white tabular-nums tracking-tighter">{String(timeLeft.minutes).padStart(2, '0')}</span>
-            </div>
-            <span className="text-[11px] sm:text-xs font-bold text-slate-500 dark:text-slate-400 mt-2">דקות</span>
-          </div>
-
-          <span className="text-2xl sm:text-3xl font-black text-slate-300 dark:text-slate-600 -mt-6">:</span>
-
-          <div className="flex flex-col items-center">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-blue-50 dark:bg-blue-900/30 rounded-2xl border border-blue-200 dark:border-blue-800/50 flex items-center justify-center shadow-inner relative overflow-hidden">
-              <div className="absolute inset-0 bg-blue-400/10 animate-pulse"></div>
-              <span className="text-3xl sm:text-4xl font-black text-blue-600 dark:text-blue-400 tabular-nums tracking-tighter relative z-10">{String(timeLeft.seconds).padStart(2, '0')}</span>
-            </div>
-            <span className="text-[11px] sm:text-xs font-bold text-blue-600/70 dark:text-blue-400/70 mt-2">שניות</span>
-          </div>
+              {idx < 3 && (
+                <div className="text-2xl sm:text-4xl font-black text-slate-300 dark:text-slate-700 -mt-8 animate-pulse relative z-10">:</div>
+              )}
+            </React.Fragment>
+          ))}
         </div>
       </div>
     );
@@ -413,7 +422,7 @@ export default function Home() {
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-0 flex justify-center w-1/3 cursor-default select-none"
           onClick={handleSecretClick}
         >
-          <h1 className="text-2xl font-black tracking-tight flex font-sans" dir="ltr" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+          <h1 className="text-3xl font-black tracking-tight flex font-sans" dir="ltr" style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
             <span className="text-slate-800 dark:text-white">Algorith</span>
             <span className="text-indigo-500 dark:text-indigo-400">M</span>
             <span className="text-blue-600 dark:text-blue-500">ed</span>
