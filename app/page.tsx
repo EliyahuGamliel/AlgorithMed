@@ -460,7 +460,14 @@ export default function Home() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 dark:divide-slate-700/50">
-                  {results.map((row, idx) => (
+                  {[...results]
+                    .sort((a, b) => {
+                      // שולפים רק את המספר מתוך השם (למשל הופכים "קבוצה 12" ל-12)
+                      const numA = parseInt(a.groupName.replace(/\D/g, '')) || 0;
+                      const numB = parseInt(b.groupName.replace(/\D/g, '')) || 0;
+                      return numA - numB;
+                    })
+                    .map((row, idx) => (
                     <tr key={idx} className="hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors">
                       <td className="p-5 font-black text-slate-800 dark:text-slate-200">{row.groupName}</td>
                       <td className="p-5 font-bold text-blue-600 dark:text-blue-400">{row.assignedTrack}</td>
