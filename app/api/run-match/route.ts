@@ -4,10 +4,18 @@ import { adminDb } from '../../../lib/firebaseAdmin';
 
 export async function POST(request: Request) {
   try {
+
+    // --- אבטחת מנהל + תמיכה ב-Cron אוטומטי ---
+    const authHeader = request.headers.get('authorization');
+    const isVercelCron = authHeader === `Bearer ${process.env.CRON_SECRET}`;
+
+
     // --- אבטחת מנהל ---
-    const body = await request.json().catch(() => ({}));
-    if (body.adminPassword !== process.env.ADMIN_SECRET) {
-      return NextResponse.json({ error: "פעולה נדחתה: סיסמת מנהל שגויה." }, { status: 401 });
+    if (!isVercelCron) {
+      const body = await request.json().catch(() => ({}));
+      if (body.adminPassword !== process.env.ADMIN_SECRET) {
+        return NextResponse.json({ error: "פעולה נדחתה: סיסמת מנהל שגויה." }, { status: 401 });
+      }
     }
     
     // 1. שליפת כל הקבוצות ממסד הנתונים
