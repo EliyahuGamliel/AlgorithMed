@@ -37,7 +37,8 @@ export async function POST(request: Request) {
       const prefs = groups[i].preferences || []; 
 
       for (let j = 0; j < count; j++) {
-        const trackNumber = j + 1; // המסלולים ממוספרים בהתאמה 1 עד count
+        // שינוי קריטי: המסלולים ממוספרים מ-2 עד 16!
+        const trackNumber = j + 2; 
         const rankIndex = prefs.indexOf(trackNumber);
         
         // אם קבוצה לא דירגה מסלול מסוים, ניתן קנס גבוה
@@ -58,7 +59,9 @@ export async function POST(request: Request) {
       const trackIndex = pair[1];
       
       const group = groups[groupIndex];
-      const trackNumber = trackIndex + 1;
+      
+      // שינוי קריטי: המסלול ששובץ הוא האינדקס ועוד 2
+      const trackNumber = trackIndex + 2;
       
       const penalty = costMatrix[groupIndex][trackIndex];
       const preferenceReceived = penalty === 10000 ? -1 : Math.sqrt(penalty);
@@ -79,7 +82,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ 
       success: true, 
-      message: `השיבוץ הושלם בהצלחה עבור ${count} קבוצות!`,
+      message: `השיבוץ הושלם בהצלחה עבור ${count} קבוצות! (מסלולים 2-16)`,
       assignments 
     });
 
